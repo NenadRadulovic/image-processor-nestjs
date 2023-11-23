@@ -52,7 +52,7 @@ export class ImagesController {
 
     await this.processedImageService.saveImages(originalImagePaths, filters);
     const processedImagesUrls =
-      this.processedImageService.generateUrl(imageUrls);
+      this.processedImageService.generateUrl(originalImagePaths);
 
     return res
       .status(200)
