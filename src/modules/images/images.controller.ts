@@ -10,7 +10,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { Filters } from './images.types';
+import { Filters, originalImageFolder } from './images.types';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import OriginalImageService from './factory/image.original.factory';
 import ProcessedImageService from './factory/image.processed.factory';
@@ -30,7 +30,10 @@ export class ImagesController {
   ): StreamableFile {
     res.set({ 'Content-Type': 'image/jpeg' });
 
-    const file = this.originalImageService.getImage(image_dir, image_name);
+    const file =
+      image_dir === originalImageFolder
+        ? this.originalImageService.getImage(image_name)
+        : this.processedImageService.getImage(image_name);
     return new StreamableFile(file);
   }
 
@@ -44,7 +47,6 @@ export class ImagesController {
     res.set({ 'Content-Type': 'application/json' });
 
     const filters: Array<Filters> = reqBody.filters.map((f) => JSON.parse(f));
-
     const originalImagePaths = await this.originalImageService.saveImages(
       images,
     );

@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import ImageFactory from './image.base.factory';
-import { join } from 'path';
 import { randomUUID } from 'crypto';
+import { originalImageFolder } from '../images.types';
+import {
+  getOriginalFolderPath,
+  getUrlImagePath,
+} from 'src/helpers/name-resolver';
 
 Injectable();
 export default class OriginalImageService extends ImageFactory {
   constructor() {
-    const path = join(process.cwd(), 'storage', 'original');
-    const fullUrl = 'http://localhost:3000/images/original';
+    const path = getOriginalFolderPath();
+    const fullUrl = getUrlImagePath(originalImageFolder);
     super(path, fullUrl);
   }
 

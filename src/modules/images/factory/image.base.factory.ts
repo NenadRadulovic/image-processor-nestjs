@@ -29,8 +29,8 @@ export default class ImageFactory {
     return imagePaths.map((imagePath) => `${this.url}/${imagePath}`);
   }
 
-  getImage(directory: string, imageName: string): ReadStream {
-    const file = createReadStream(join(this.path, directory, imageName));
+  getImage(imageName: string): ReadStream {
+    const file = createReadStream(join(this.path, imageName));
     return file;
   }
 }

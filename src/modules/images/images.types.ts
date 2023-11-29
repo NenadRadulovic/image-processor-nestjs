@@ -4,7 +4,7 @@ export class ProcessImagesRequest {
 }
 
 export interface Filters {
-  name: string;
+  name: ImageProcessingOptions;
   options?: string | number | object;
 }
 export interface ModificationInterface {
@@ -17,3 +17,12 @@ export interface PrintTextInterface {
   positionX: number;
   positionY: number;
 }
+
+type BlackWhite = 'Black/White';
+type Opaque = 'Opaque';
+type Posterize = 'Posterize';
+type ImageProcessingOptions = BlackWhite | Opaque | Posterize;
+
+export const storageFolder = 'storage';
+export const processedImageFolder = 'processed';
+export const originalImageFolder = 'original';
